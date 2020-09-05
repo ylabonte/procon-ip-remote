@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - "10"
+  - "12"
+  - "14"
+dist: focal
+sudo: required
+branches:
+  only:
+  - master
+before_script:
+  - npm install -g @angular/cli
+script:
+- ng lint
+- ng build --prod --base-href https://github.com/ylabonte/procon-ip-remote/
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/procon-ip-remote
+  on:
+    branch: master
